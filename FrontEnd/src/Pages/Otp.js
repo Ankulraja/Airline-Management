@@ -9,7 +9,8 @@ const Otp = ({ setISLoggedIn }) => {
   const navigate = useNavigate();
 
   function submitHandler() {
-    console.log("hey");
+    // console.log("hey");
+    console.log(otp);
     setISLoggedIn(true);
     toast.success("Your account is created");
     navigate("/dashboard");

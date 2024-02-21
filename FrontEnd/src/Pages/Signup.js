@@ -1,7 +1,10 @@
 import React from 'react'
-
 import { SignupForm } from '../Components/SignupForm';
+import {SignupDataID} from '../Context/SignupData'
  const Signup = ({setISLoggedIn}) => {
+  // const {formData,setFormdata} = SignupDataID();
+  //   console.log(formData);
+  //   console.log("First",formData.firstName);
   return (
      <div className=" text-white flex justify-center items-center w-full h-[100vh] " style={{ backgroundImage: 'url("https://wallpaperaccess.com/full/254383.jpg")', 
     backgroundSize: 'cover'}}>
