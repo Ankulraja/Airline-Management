@@ -7,6 +7,8 @@ import About from "./Pages/About";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Dashboard from "./Pages/Dashboard";
+import  Otp  from './Pages/Otp'; 
+
 import { useState } from "react";
 import { PrivateRoute } from "./Components/PrivateRoute";
 function App() {
@@ -31,6 +33,8 @@ function App() {
             path="/signup"
             element={<Signup setISLoggedIn={setISLoggedIn} />}
           />
+      <Route path="/otp" element={<Otp setISLoggedIn={setISLoggedIn}/>}/>
+
           <Route
             path="/dashboard"
             element={

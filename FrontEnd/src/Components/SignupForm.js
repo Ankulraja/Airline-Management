@@ -5,7 +5,7 @@ import {toast} from 'react-hot-toast';
 import { navigate, useNavigate } from 'react-router-dom';
 
 
-export const SignupForm = ({setISLoggedIn}) => {
+export const SignupForm = () => {
  const navigate = useNavigate();
  const[formData,setFormdata] = useState({
     firstname:"",
@@ -33,8 +33,6 @@ function submitHandler(event){
         toast.error("Password do not match");
         return ;
     }
-    setISLoggedIn(true);
-    toast.success("Your account is created");
 
     const acodata= {
         ...formData
@@ -42,13 +40,12 @@ function submitHandler(event){
     const finaldata ={
         ...acodata,accountType
     }
-    console.log("your account is created...");
     console.log(finaldata);
-    navigate("/dashboard");
+    navigate("/otp"); //here i changed
 }
 
   return (
-    <div className=' bg-transparent border border-black p-6 pt-30 pb-20 bg-opacity-30 backdrop-blur-xl rounded-md  absolute right-10'>
+    <div className=' bg-transparent border border-black p-6 pt-30 pb-20 backdrop-blur-xl rounded-md  absolute right-10'>
     {/* student instructer tab */}
    <div className='flex rounded-full bg-gray-800 p-1
     gap-x-1 my-6 max-w-max '>
