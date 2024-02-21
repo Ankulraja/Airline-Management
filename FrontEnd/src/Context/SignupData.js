@@ -25,7 +25,7 @@ const signupDataId = createContext();
 
 export const SignupDataIdProvider = ({ children }) => {
     const [formData, setFormdata] = useState({
-        firstName: "Hello",
+        firstName: "",
         lastName: "",
         email: "",
         password: "",

@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-
 import { Link , useNavigate} from 'react-router-dom';
 import {toast} from 'react-hot-toast'
-
+import { LoginDataID } from '../Context/LoginData';
 
 export const LoginForm = ({setISLoggedIn}) => {
-const [formData, setFormdata]=useState({
-    email:"",password:""
-});
+    const {formData,setFormdata} = LoginDataID();
+// const [formData, setFormdata]=useState({
+//     email:"",password:""
+// });
  const navigate =useNavigate();
 const [showPassword,setShowPassword]=useState(false);
 

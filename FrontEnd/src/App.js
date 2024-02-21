@@ -8,16 +8,19 @@ import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Dashboard from "./Pages/Dashboard";
 import Otp from "./Pages/Otp";
-import { SignupDataIdProvider } from "./Context/SignupData";
-
+import { SignupDataIdProvider } from "./Context/SignupData"
+import { LoginDataIdProvider } from "./Context/LoginData";
+import { Toaster } from 'react-hot-toast';
 import { useState } from "react";
 import { PrivateRoute } from "./Components/PrivateRoute";
 function App() {
   const [isLoggedIn, setISLoggedIn] = useState(false);
 
   return (
-    <SignupDataIdProvider>   
+    <SignupDataIdProvider>
+    <LoginDataIdProvider>
       <div>
+          <Toaster/>
         <div className="w-screen h-full flex flex-col">
           <NavBar isLoggedIn={isLoggedIn} setISLoggedIn={setISLoggedIn} />
 
@@ -51,6 +54,7 @@ function App() {
           </Routes>
         </div>
       </div>
+      </LoginDataIdProvider>   
     </SignupDataIdProvider>
   );
 }

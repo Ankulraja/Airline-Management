@@ -5,16 +5,16 @@ import { toast } from "react-hot-toast";
 import { navigate, useNavigate } from "react-router-dom";
 import {SignupDataID} from "../Context/SignupData";
 export const SignupForm = () => {
-  // const {formData,setFormdata} = SignupDataID();
-//   console.log("Ye aa gaya",firstName)
+  const {formData,setFormdata} = SignupDataID();
+  // console.log("Ye aa gaya",firstName)
   const navigate = useNavigate();
-  const [formData, setFormdata] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    password: "",
-    cnfpassword: "",
-  });
+  // const [formData, setFormdata] = useState({
+  //   firstname: "",
+  //   lastname: "",
+  //   email: "",
+  //   password: "",
+  //   cnfpassword: "",
+  // });
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword1, setShowPassword1] = useState(false);
   const [accountType, setAccountType] = useState("User");
@@ -29,8 +29,8 @@ export const SignupForm = () => {
   function submitHandler(event) {
     event.preventDefault();
     console.log("Click On Submit")
-    if (formData.password !== formData.cnfpassword) {
-      console.log("Not Matching Password")
+    if (formData.password !== formData.confirmPassword) {
+      console.log("Password is not matching");
       toast.error("Password do not match");
       return;
     }
@@ -92,10 +92,10 @@ export const SignupForm = () => {
             <input
               required
               type="text"
-              name="firstname"
+              name="firstName"
               onChange={changeHandler}
               placeholder="Enter First Name"
-              value={formData.firstname}
+              value={formData.firstName}
               className="bg-gray-800 rounded-[0.5rem] text-gray-50 p-[12px] w-full h-10 border-b-2 border-b-blue-200"
             />
           </label>
@@ -107,10 +107,10 @@ export const SignupForm = () => {
             <input
               required
               type="text"
-              name="lastname"
+              name="lastName"
               onChange={changeHandler}
               placeholder="Enter Last Name"
-              value={formData.lastname}
+              value={formData.lastName}
               className="bg-gray-800 rounded-[0.5rem] text-gray-50 p-[12px] w-full h-10 border-b-2 border-b-blue-200"
             />
           </label>
@@ -164,10 +164,10 @@ export const SignupForm = () => {
             <input
               required
               type={showPassword1 ? "text" : "password"}
-              name="cnfpassword"
+              name="confirmPassword"
               onChange={changeHandler}
               placeholder="Confirm Password"
-              value={formData.cnfpassword}
+              value={formData.confirmPassword}
               className="bg-gray-800 rounded-[0.5rem] text-gray-50 p-[12px] w-full h-10 border-b-2 border-b-blue-200"
             />
 
