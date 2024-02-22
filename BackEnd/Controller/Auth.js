@@ -8,11 +8,12 @@ require("dotenv").config();
 // Otp Generator
 exports.OtpGenerator = async (req, res) => {
   try {
-
+     console.log("1")
     const { email } = req.body;
-
+    console.log("2")
 
     const duplicate = await User.findOne({ email });
+
     if (duplicate) {
       return res.status(401).json({
         success: false,
@@ -50,6 +51,7 @@ exports.OtpGenerator = async (req, res) => {
       message: "OTP Sent Successfully",
       otp,
     });
+    console.log("7")
   } catch (err) {
     return res.status(401).json({
       success: false,
@@ -66,26 +68,16 @@ exports.signup = async (req, res) => {
       firstName,
       lastName,
       password,
-      confirmPassword,
       accountType,
       otp,
     } = req.body;
-    try {
-      const result = await validateUser.validateAsync(req.body);
-    } catch (err) {
-      console.log("Error During Validation", err);
-    }
 
-    const duplicate = await User.findOne({ email });
 
-    //    Check The Duplicate
-    if (duplicate) {
-      return res.status(401).json({
-        success: false,
-        message: "User Already Registered",
-      });
-    }
-
+    // try {
+    //   const result = await validateUser.validateAsync(req.body);
+    // } catch (err) {
+    //   console.log("Error During Validation", err);
+    // }
 
     // Find Most Recent Otp
     const recentOtp = await OTP.findOne({ email })
@@ -99,12 +91,12 @@ exports.signup = async (req, res) => {
     if (!recentOtp) {
       return res.status(401).json({
         success: false,
-        message: "Otp Not Found",
+        message: "Otp Expire",
       });
     }
 
 
-
+    console.log("4")
     // Match Otp
     if (otp !== recentOtp.otp) {
       return res.status(401).json({
@@ -114,21 +106,24 @@ exports.signup = async (req, res) => {
     }
 
 
-
+     console.log("5")
     const hashPassword = await bcrypt.hash(password, 10);
-
+    console.log("6")
     // Create Entry In DB
-    await User.create({
-        email:email,
-      firstName:firstName,
-      lastName:lastName,
-      password: hashPassword,
-      accountType,
-      image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,
-    });
+    
+      await User.create({
+        email,
+        firstName,
+        lastName,
+        password: hashPassword,
+        accountType,
+        image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,
+      });
+    
+    
 
 
-
+     console.log("7")
     return res.status(200).json({
       success: true,
       message: "Account Created Successfully",
@@ -190,7 +185,7 @@ exports.login = async (req, res) => {
 
     user.token = token;
     user.password = undefined;
-    console.log("7")
+    console.log("Login 7")
 
     const options = {
       expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),

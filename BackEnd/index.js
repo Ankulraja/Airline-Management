@@ -4,7 +4,11 @@ const dbConnect =  require("./Config/Database")
 const cloudinaryConnect = require("./Config/Cloudinary");
 const userRouter = require ("./Router/UserRouter")
 require("dotenv").config();
+const cors = require('cors');
 
+
+
+app.use(cors());
 app.use(express.json());
 dbConnect();
 cloudinaryConnect();

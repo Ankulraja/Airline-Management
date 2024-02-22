@@ -8,7 +8,9 @@ import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Dashboard from "./Pages/Dashboard";
 import Otp from "./Pages/Otp";
+import { Toaster } from 'react-hot-toast';
 import { SignupDataIdProvider } from "./Context/SignupData";
+import {AdminDashboard} from "./Pages/AdminDashboad"
 
 import { useState } from "react";
 import { PrivateRoute } from "./Components/PrivateRoute";
@@ -19,6 +21,7 @@ function App() {
     <SignupDataIdProvider>   
       <div>
         <div className="w-screen h-full flex flex-col">
+          <Toaster></Toaster>
           <NavBar isLoggedIn={isLoggedIn} setISLoggedIn={setISLoggedIn} />
 
           <Routes>
@@ -42,6 +45,14 @@ function App() {
 
             <Route
               path="/dashboard"
+              element={
+                <PrivateRoute isLoggedIn={isLoggedIn}>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/AdminDashboard"
               element={
                 <PrivateRoute isLoggedIn={isLoggedIn}>
                   <Dashboard />

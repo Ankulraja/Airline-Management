@@ -6,7 +6,7 @@ import {toast} from 'react-hot-toast'
         let isLoggedIn= props.isLoggedIn;
         let setISLoggedIn= props.setISLoggedIn;
   return (
-    <div className='bg-zinc-950  fixed top-0 left-0 right-0 z-10'>
+    <div className='bg-zinc-950  fixed top-0 left-0 right-0 z-40'>
     <div className='flex justify-between items-center w-11/12
             max-w-[1160px] py-4 ml-20 relative'>
         <Link to="/">

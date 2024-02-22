@@ -4,47 +4,50 @@ import { AiOutlineEyeInvisible } from "react-icons/ai";
 import { toast } from "react-hot-toast";
 import { navigate, useNavigate } from "react-router-dom";
 import {SignupDataID} from "../Context/SignupData";
+import axios from 'axios';
+import Loader from "./Loader";
 export const SignupForm = () => {
-  // const {formData,setFormdata} = SignupDataID();
-//   console.log("Ye aa gaya",firstName)
+  const {formData,setFormdata} = SignupDataID();
+  const [loader,setLoader]= useState(false);
+  // console.log("Loader",loader);
+
   const navigate = useNavigate();
-  const [formData, setFormdata] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    password: "",
-    cnfpassword: "",
-  });
+  
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword1, setShowPassword1] = useState(false);
-  const [accountType, setAccountType] = useState("User");
+  const [accoType, setAccountType] = useState("User");
 
   function changeHandler(event) {
     setFormdata((prevData) => ({
       ...prevData,
       [event.target.name]: event.target.value,
+      accountType: accoType,
     }));
   }
 
-  function submitHandler(event) {
+  async function submitHandler(event) {
     event.preventDefault();
-    console.log("Click On Submit")
-    if (formData.password !== formData.cnfpassword) {
-      console.log("Not Matching Password")
+    if (formData.password !== formData.confirmPassword) {
       toast.error("Password do not match");
       return;
     }
 
-    const acodata = {
-      ...formData,
-    };
-    const finaldata = {
-      ...acodata,
-      accountType,
-    };
+    setLoader(true);
+    try{
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/OtpGenerator`, { email: formData.email });
+      // console.log(response.data.success)
+      if(response.data.success){
+        setLoader(false)
+        navigate("/otp");
+        toast.success(`You OTP will be send in ${formData.email}`)
+      }
 
-    console.log("Here It Was",finaldata);
-    navigate("/otp");
+    }catch(err){
+      toast.error(err.response.data.message)
+      // console.log(err)
+      // console.log(err.response.data.success)
+
+    }
   }
 
   return (
@@ -56,7 +59,7 @@ export const SignupForm = () => {
       >
         <button
           className={`${
-            accountType === "User"
+            accoType === "User"
               ? "bg-gray-950 text-white "
               : "bg-transparent text-gray-200"
           } 
@@ -70,7 +73,7 @@ export const SignupForm = () => {
 
         <button
           className={`${
-            accountType === "Admin"
+            accoType === "Admin"
               ? "bg-gray-900 text-gray-50 "
               : "bg-transparent text-gray-200"
           } 
@@ -92,10 +95,10 @@ export const SignupForm = () => {
             <input
               required
               type="text"
-              name="firstname"
+              name="firstName"
               onChange={changeHandler}
               placeholder="Enter First Name"
-              value={formData.firstname}
+              value={formData.firstName}
               className="bg-gray-800 rounded-[0.5rem] text-gray-50 p-[12px] w-full h-10 border-b-2 border-b-blue-200"
             />
           </label>
@@ -107,10 +110,10 @@ export const SignupForm = () => {
             <input
               required
               type="text"
-              name="lastname"
+              name="lastName"
               onChange={changeHandler}
               placeholder="Enter Last Name"
-              value={formData.lastname}
+              value={formData.lastName}
               className="bg-gray-800 rounded-[0.5rem] text-gray-50 p-[12px] w-full h-10 border-b-2 border-b-blue-200"
             />
           </label>
@@ -164,10 +167,10 @@ export const SignupForm = () => {
             <input
               required
               type={showPassword1 ? "text" : "password"}
-              name="cnfpassword"
+              name="confirmPassword"
               onChange={changeHandler}
               placeholder="Confirm Password"
-              value={formData.cnfpassword}
+              value={formData.confirmPassword}
               className="bg-gray-800 rounded-[0.5rem] text-gray-50 p-[12px] w-full h-10 border-b-2 border-b-blue-200"
             />
 
@@ -184,8 +187,8 @@ export const SignupForm = () => {
           </label>
         </div>
 
-        <button type="submit" className="bg-yellow-500 mt-5 w-full rounded-[8px] font-medium text-gray-800 px-[10px] py-[10px] border-2 border-gray-950  hover:text-white duration-200">
-          Create Account
+        <button type="submit" className="bg-yellow-500 mt-5 w-full h-[50px] rounded-[8px] font-medium text-gray-800 px-[10px] py-[10px] border-2 border-gray-950  hover:text-white duration-200">
+         {loader ? (<Loader></Loader>):(<div>Create Account</div>)} 
         </button>
       </form>
     </div>
