@@ -92,7 +92,7 @@ const Home = () => {
               <p>No expiry</p>
               <p className="text-[10px]">T&C apply*</p>
             </div>
-          </div>   
+          </div>
 
           {/* Card-4 */}
           <div
