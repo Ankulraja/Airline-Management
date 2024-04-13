@@ -22,6 +22,7 @@ export const SignupDataIdProvider = ({ children }) => {
 export const SignupDataID = () => {
   const context = useContext(signupDataId);
   if (!context) {
+   
     throw new Error("SignupDataID must be used within a SignupDataIdProvider");
   }
   return context;

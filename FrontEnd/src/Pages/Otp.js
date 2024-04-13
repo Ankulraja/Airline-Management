@@ -3,38 +3,45 @@ import { useState } from "react";
 import OtpInput from "react-otp-input";
 import { toast } from "react-hot-toast";
 import { navigate, useNavigate } from "react-router-dom";
-import { SignupDataID } from "../Context/SignupData";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { signUp } from "../Service/Operation/Auth";
+import { sendOtp } from "../Service/Operation/Auth";
+
 const Otp = ({ setISLoggedIn }) => {
   const [otp, setOtp] = useState("");
-  const { formData } = SignupDataID();
-  // console.log(formData)
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { signupData } = useSelector((state) => state.auth);
 
+  const navigate = useNavigate();
+  console.log("Si", signupData);
   async function submitHandler() {
     console.log(otp);
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/signup`,
-        {
-          email: formData.email,
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          password: formData.password,
-          accountType: formData.accountType,
-          otp: otp,
-        }
-      );
-      console.log(response.data)
-      if(response.data.success){
-    navigate("/login");
-    setISLoggedIn(true);
-    toast.success("Your account is created");
+      const {
+        accountType,
+        firstName,
+        lastName,
+        email,
+        password,
+        confirmPassword,
+      } = signupData;
 
-      }
+      dispatch(
+        signUp(
+          accountType,
+          firstName,
+          lastName,
+          email,
+          password,
+          confirmPassword,
+          otp,
+          navigate
+        )
+      );
     } catch (e) {
-    console.log(e.response.data)
-    toast.error(e.response.data.message);
+      console.log("Error in Sending OTP", e.response.data);
+      toast.error(e.response.data.message);
     }
   }
 
@@ -50,7 +57,7 @@ const Otp = ({ setISLoggedIn }) => {
         <div className="absolute h-[220px] flex flex-col items-center   bg-gray-500 border bg-opacity-40 border-black p-10 rounded-md right-[400px] top-[200px]">
           <h1 className="text-4xl text-black font-serif">Enter Your OTP</h1>
           <p className="text-[10px] pb-5 text-gray-200 font-serif">
-            Your OTP is Sent in{formData.email}
+            Your OTP is Sent in <span className="p-1">{signupData?.email}</span>
           </p>
           <OtpInput
             value={otp}
@@ -68,7 +75,12 @@ const Otp = ({ setISLoggedIn }) => {
           >
             Submit
           </button>
-          <div className="absolute bottom-1 right-2 text-white font-sans font-semibold hover:underline cursor-pointer">
+          <div
+            onClick={() => {
+              dispatch(sendOtp(signupData.email, navigate));
+            }}
+            className="absolute bottom-1 right-2 text-white font-sans font-semibold hover:underline cursor-pointer"
+          >
             Resend OTP
           </div>
         </div>

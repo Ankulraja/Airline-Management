@@ -2,16 +2,20 @@ import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { SignupDataID } from "../Context/SignupData";
+import { SignupDataID } from "../../../Context/SignupData";
 import axios from "axios";
-export const LoginForm = ({ setISLoggedIn }) => {
-  const { formData, setFormdata } = SignupDataID();
-  // const [formData, setFormdata]=useState({
-  //     email:"",password:""
-  // });
-  const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
+import {useDispatch} from "react-redux";
+import {login} from "../../../Service/Operation/Auth"
+export const LoginForm = () => {
 
+
+const dispatch = useDispatch();
+const navigate = useNavigate();
+const [showPassword, setShowPassword] = useState(false);
+
+  const [formData, setFormdata]=useState({
+      email:"",password:""
+  });
   function changeHandler(event) {
     setFormdata((prevData) => ({
       ...prevData,
@@ -21,20 +25,10 @@ export const LoginForm = ({ setISLoggedIn }) => {
 
   async function submitHandler(event) {
     event.preventDefault();
-    console.log("Hello")
+
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/login`,
-        { email: formData.email, password: formData.password }
-      );
-      console.log(response.data)
-      console.log(response.data.user.accountType);
-      if (response.data.success) {
-        setISLoggedIn(true);
-        toast.success("Logged In");
-        response.data.user.accountType ==="User" ? (navigate("/dashboard")):(navigate("/AdminDashboard"))
-        
-      }
+      // console.log("formData",formData)
+      dispatch(login(formData.email , formData.password,navigate));
     } catch (err) {
       toast.error(err.response.data.message);
     }

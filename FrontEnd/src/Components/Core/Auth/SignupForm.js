@@ -2,26 +2,32 @@ import React, { useState } from "react";
 import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
 import { toast } from "react-hot-toast";
+import { useDispatch } from "react-redux";
 import { navigate, useNavigate } from "react-router-dom";
-import {SignupDataID} from "../Context/SignupData";
-import axios from 'axios';
-import Loader from "./Loader";
+import { sendOtp } from "../../../Service/Operation/Auth";
+import { setSignupData } from "../../../Slices/authSlice";
+import axios from "axios";
+import Loader from "../../Common.js/Loader";
 export const SignupForm = () => {
-  const {formData,setFormdata} = SignupDataID();
-  const [loader,setLoader]= useState(false);
-  // console.log("Loader",loader);
+  const [formData, setFormdata] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [loader, setLoader] = useState(false);
 
   const navigate = useNavigate();
-  
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword1, setShowPassword1] = useState(false);
-  const [accoType, setAccountType] = useState("User");
+  // const [accoType, setAccountType] = useState("User");
 
   function changeHandler(event) {
     setFormdata((prevData) => ({
       ...prevData,
       [event.target.name]: event.target.value,
-      accountType: accoType,
     }));
   }
 
@@ -31,29 +37,30 @@ export const SignupForm = () => {
       toast.error("Password do not match");
       return;
     }
-
-    setLoader(true);
-    try{
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/OtpGenerator`, { email: formData.email });
-      // console.log(response.data.success)
-      if(response.data.success){
-        setLoader(false)
-        navigate("/otp");
-        toast.success(`You OTP will be send in ${formData.email}`)
-      }
-
-    }catch(err){
-      toast.error(err.response.data.message)
+    try {
+      setLoader(true);
+      console.log("formData", formData);
+      dispatch(setSignupData(formData));
+      dispatch(sendOtp(formData.email, navigate));
+      setFormdata({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
+      setLoader(false);
+    } catch (err) {
+      toast.error(err.response.data.message);
       // console.log(err)
-      // console.log(err.response.data.success)
-
+      console.log(" Error in Signup",err.response.data.success);
     }
   }
 
   return (
     <div className=" bg-transparent border border-black p-6 pt-30 pb-20 backdrop-blur-xl rounded-md  absolute right-10">
       {/* student instructer tab */}
-      <div
+      {/* <div
         className="flex rounded-full bg-gray-800 p-1
     gap-x-1 my-6 max-w-max "
       >
@@ -84,7 +91,7 @@ export const SignupForm = () => {
         >
           Admin
         </button>
-      </div>
+      </div> */}
       <form onSubmit={submitHandler} className="w-[450px]">
         {/* first and last name  */}
         <div className="flex justify-between gap-2 ">
@@ -187,8 +194,11 @@ export const SignupForm = () => {
           </label>
         </div>
 
-        <button type="submit" className="bg-yellow-500 mt-5 w-full h-[50px] rounded-[8px] font-medium text-gray-800 px-[10px] py-[10px] border-2 border-gray-950  hover:text-white duration-200">
-         {loader ? (<Loader></Loader>):(<div>Create Account</div>)} 
+        <button
+          type="submit"
+          className="bg-yellow-500 mt-5 w-full h-[50px] rounded-[8px] font-medium text-gray-800 px-[10px] py-[10px] border-2 border-gray-950  hover:text-white duration-200"
+        >
+          {loader ? <Loader></Loader> : <div>Create Account</div>}
         </button>
       </form>
     </div>

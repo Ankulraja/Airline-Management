@@ -1,6 +1,6 @@
 // AboutPage.js
 import React from 'react';
-import ContactUs from "../Components/ContactUs"
+import ContactUs from "../Components/Common.js/ContactUs"
 const AboutPage = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
