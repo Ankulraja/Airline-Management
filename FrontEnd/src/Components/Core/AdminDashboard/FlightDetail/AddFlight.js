@@ -45,7 +45,7 @@ function AddFlight() {
         ...formData,
         flightId: oneFlightData._id,
       };
-      // console.log("form modify",finalData)
+     
       dispatch(modifyFlightData(finalData, navigate));
     } else {
       dispatch(createFlightData(formData, navigate));
@@ -59,10 +59,10 @@ function AddFlight() {
 
   return (
     <div className="flex items-center justify-center bg-slate-200 w-full h-full">
-      <div className="relative h-[500px]  min-w-[420px] bg-transparent bg-slate-300 rounded-3xl p-2 border border-gray-600 hover:border-black duration-200">
-        <form className="" onSubmit={submitHandler}>
-          <div className="flex justify-center ">
-            <label className=" w-full flex flex-col items-start ml-3 mt-1">
+      <div className="relative  min-w-[420px] bg-transparent bg-slate-300 rounded-3xl p-2 border border-gray-600 hover:border-black duration-200">
+        <form className="px-5 flex flex-col  justify-center" onSubmit={submitHandler}>
+          <div className="flex justify-center my-2">
+            <label className="w-full flex flex-col items-start ">
               <p className="text-[0.875rem] text-gray-900 bold font-serif mb-1 leading-[1.375rem] ml-3">
                 From<sup className="text-pink-500">*</sup>
               </p>
@@ -77,7 +77,7 @@ function AddFlight() {
               />
             </label>
             <CgArrowsExchange className="text-[100px] mr-5" />
-            <label className="w-full flex flex-col items-start  mt-1">
+            <label className="w-full flex flex-col items-start ">
               <p className="text-[0.875rem] text-gray-900 bold font-serif mb-1 leading-[1.375rem] ml-3">
                 To<sup className="text-pink-500">*</sup>
               </p>
@@ -94,8 +94,10 @@ function AddFlight() {
           </div>
 
           {/* Flight Name */}
-          <label className="ml-[15%] w-full flex flex-col items-start mx-auto -mt-3">
-            <p className="text-[0.875rem] text-gray-900 bold font-serif mb-1 leading-[1.375rem] ml-[25%] ">
+
+          <div className="w-full ">
+          <label className="w-1/2 mx-auto flex flex-col ">
+            <p className="text-[0.875rem] text-gray-900 bold font-serif leading-[1.375rem] ml-[25%] ">
               Flight Name<sup className="text-pink-500">*</sup>
             </p>
             <input
@@ -105,12 +107,15 @@ function AddFlight() {
               onChange={changeHandler}
               placeholder="Indigo"
               value={formData.flightName}
-              className="bg-gray-800 rounded-[0.5rem] mr-2 font-serif text-gray-50 p-[10px] w-[300px] h-10 border-b-2 border-b-blue-200"
+              className="bg-gray-800 rounded-[0.5rem] font-serif text-gray-50 p-[10px] h-10 border-b-2 border-b-blue-200"
             />
           </label>
+          </div>
+  
 
-          <div className="flex justify-center relative mt-4">
-            <label className=" absolute left-2 flex flex-col items-start  mt-1">
+           {/* Flight Time */}
+          <div className="flex justify-between">
+            <label className=" flex flex-col items-start">
               <p className="text-[0.875rem] text-gray-900 bold font-serif mb-1 leading-[1.375rem] ml-1">
                 departure<sup className="text-pink-500">*</sup>
               </p>
@@ -140,9 +145,11 @@ function AddFlight() {
               />
             </label>
           </div>
-          {/* Flight Mode */}
 
-          <label className="right-[29%] absolute top-[280px] flex flex-col items-start mx-auto -mt-2">
+
+          {/* Flight Mode */}
+          <div className="flex justify-center items-center py-4">
+          <label className=" flex flex-col items-start mx-auto">
             <p className="text-[0.875rem] text-gray-900 bold font-serif mb-1 leading-[1.375rem] ml-[30%]">
               Flight Mode<sup className="text-pink-500">*</sup>
             </p>
@@ -158,8 +165,12 @@ function AddFlight() {
               <option value="Connect">Connect</option>
             </select>
           </label>
-          <div className="absolute bottom-16 flex -left-11 -mt-2">
-            <label className="ml-[15%] w-full flex flex-col items-start mx-auto -mt-3">
+          </div>
+
+          {/* Fare */}
+
+          <div className=" flex ">
+            <label className=" w-full flex flex-col items-start mx-auto -mt-3">
               <p className="text-[0.875rem] text-gray-900 bold font-serif mb-1 leading-[1.375rem] ml-[25%] ">
                 Economy<sup className="text-pink-500">*</sup>
               </p>
@@ -202,18 +213,19 @@ function AddFlight() {
               />
             </label>
           </div>
+
           {/* Add other form fields similarly */}
           {oneFlightData ? (
-            <div className="">
+            <div className=" flex flex-row justify-between my-6 ">
               <div
                 onClick={deleteHandler}
-                className="flex items-center absolute justify-center w-[150px]  left-[8%] bottom-2 rounded-2xl border-2 p-2 border-gray-600 hover:border-gray-950 duration-200 hover:bg-slate-400"
+                className="flex items-center justify-center w-[150px]  left-[8%] bottom-2 rounded-2xl border-2 p-2 border-gray-600 hover:border-gray-950 duration-200 hover:bg-slate-400"
               >
                 Delete
               </div>
               <button
                 type="submit"
-                className="flex items-center absolute justify-center w-[150px]  right-[8%] bottom-2 rounded-2xl border-2 p-2 border-gray-600 hover:border-gray-950 duration-200 hover:bg-slate-400"
+                className="flex items-center  justify-center w-[150px]  right-[8%] bottom-2 rounded-2xl border-2 p-2 border-gray-600 hover:border-gray-950 duration-200 hover:bg-slate-400"
               >
                 Modify
               </button>
@@ -221,7 +233,7 @@ function AddFlight() {
           ) : (
             <button
               type="submit"
-              className="flex items-center absolute justify-center w-[400px]  right-[8%] bottom-2 rounded-2xl border-2 p-2 border-gray-600 hover:border-gray-950 duration-200 hover:bg-slate-400"
+              className="flex items-center  justify-center w-[400px]  right-[8%] bottom-2 rounded-2xl border-2 p-2 border-gray-600 hover:border-gray-950 duration-200 hover:bg-slate-400"
             >
               Create
             </button>
