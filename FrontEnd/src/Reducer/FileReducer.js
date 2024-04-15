@@ -1,12 +1,12 @@
 import authReducer from "../Slices/authSlice";
 import { combineReducers } from "@reduxjs/toolkit";
 import profileReducer from "../Slices/profile";
-import cartReducer from "../Slices/cartSlice";
+import modyfyReducer from "../Slices/modifySlice";
 import flightReducer  from "../Slices/flightSlice"
 const rootReducer = combineReducers({
   auth: authReducer,
   profile: profileReducer,
-  cart: cartReducer,
+  modify: modyfyReducer,
   flight: flightReducer
 });
 

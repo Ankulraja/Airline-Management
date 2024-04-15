@@ -1,17 +1,22 @@
 import { useEffect, useState } from "react";
 import { PiArrowsLeftRightThin } from "react-icons/pi";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useLocation,matchPath } from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import {setOneFlightData} from "../../../Slices/flightSlice"
+import { searchFlightData } from "../../../Service/Operation/Flight";
+
 const AdminDash = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const {allFlightData} = useSelector((state)=>state.flight)
+  console.log("ghjkl",allFlightData[0])
   const [referesh,setRefersh] = useState(true);
   const [formData, setFormData] = useState({
-    from: "",
-    to: "",
+    flightFrom: allFlightData[0]?.flightFrom ?? "",
+    flightTo: allFlightData[0]?.flightTo ?? "",
   });
   const changeHandler = (event) => {
     setFormData((old) => ({
@@ -23,7 +28,9 @@ const AdminDash = () => {
   const submitHandler = (event) => {
     event.preventDefault();
     console.log("Form submit", formData);
+    dispatch(searchFlightData(formData));
   };
+
   const backHandler =()=>{
     setRefersh(!referesh)
     localStorage.removeItem("oneFlightData");
@@ -34,9 +41,15 @@ const AdminDash = () => {
     return matchPath({ path: route }, location.pathname);
   };
 
-  useEffect(()=>{
+  // useEffect(()=>{
 
-  },[referesh])
+  // },[referesh])
+
+  const swapHandler =()=>{
+    let temp = formData.flightFrom;
+    formData.flightFrom = formData.flightTo;
+    formData.flightTo = temp
+  }
 
   return (
     <div className="w-screen min-h-screen bg-slate-200 pt-8 border border-blu-500">
@@ -48,19 +61,19 @@ const AdminDash = () => {
           <input
             onChange={changeHandler}
             placeholder="From"
-            name="from"
-            value={formData.from}
-            className="h-10 shadow shadow-fuchsia-200 text-xl font-bold rounded-lg px-3 w-40 file:"
+            name="flightFrom"
+            value={formData.flightFrom}
+            className="h-10 shadow shadow-fuchsia-200  rounded-lg px-3 w-40 "
           ></input>
-          <div className="w-1/2 flex justify-center items-center text-5xl">
+          <button onClick={swapHandler} className="w-1/2 flex justify-center items-center text-5xl">
             <PiArrowsLeftRightThin></PiArrowsLeftRightThin>
-          </div>
+          </button>
           <input
             onChange={changeHandler}
             placeholder="TO"
-            name="to"
-            value={formData.to}
-            className="h-10 shadow shadow-fuchsia-200 text-xl font-bold rounded-lg px-3 w-40 file:"
+            name="flightTo"
+            value={formData.flightTo}
+            className="h-10 shadow shadow-fuchsia-200   rounded-lg px-3 w-40"
           ></input>
           <button
             type="submit"

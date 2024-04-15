@@ -1,12 +1,6 @@
-// AboutPage.js
-import React from 'react';
-import ContactUs from "../Components/Common.js/ContactUs"
-const AboutPage = () => {
+const About = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <ContactUs></ContactUs>
-    </div>
-  );
-};
-
-export default AboutPage;
+    <div>About</div>
+  )
+}
+export default About

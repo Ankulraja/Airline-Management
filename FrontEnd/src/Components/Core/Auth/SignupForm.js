@@ -7,7 +7,7 @@ import { navigate, useNavigate } from "react-router-dom";
 import { sendOtp } from "../../../Service/Operation/Auth";
 import { setSignupData } from "../../../Slices/authSlice";
 import axios from "axios";
-import Loader from "../../Common.js/Loader";
+import Loader from "../../Common/Loader";
 export const SignupForm = () => {
   const [formData, setFormdata] = useState({
     firstName: "",

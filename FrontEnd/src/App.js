@@ -1,9 +1,9 @@
 // import logo from './logo.svg';
 import "./App.css";
-import NavBar from "./Components/Common.js/NavBar";
+import NavBar from "./Components/Common/NavBar";
 import { Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
-import About from "./Pages/About";
+import Contact from "./Pages/Contact";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Dashboard from "./Pages/Dashboard";
@@ -11,11 +11,11 @@ import Otp from "./Pages/Otp";
 import { Toaster } from "react-hot-toast";
 import { SignupDataIdProvider } from "./Context/SignupData";
 import AdminDashboard from "./Components/Core/AdminDashboard/AdminDash";
-import AddFlight from "./Components/Core/AdminDashboard/FlightDetail/AddFlight.js"
+import AddFlight from "./Components/Core/AdminDashboard/FlightDetail/AddFlight.js";
 import { useState } from "react";
 import { PrivateRoute } from "./Components/Core/Auth/PrivateRoute";
-import Error from "./Components/Common.js/Error";
-import UserDash from "./Components/Core/UserDashboard/UserDash";
+import Error from "./Components/Common/Error";
+import { UserDash } from "./Components/Core/UserDashboard/UserDash";
 import FlightData from "./Components/Core/AdminDashboard/FlightDetail/FlightData";
 function App() {
   const [isLoggedIn, setISLoggedIn] = useState(false);
@@ -34,8 +34,8 @@ function App() {
               element={<Login setISLoggedIn={setISLoggedIn} />}
             />
             <Route
-              path="/about"
-              element={<About setISLoggedIn={setISLoggedIn} />}
+              path="/contact"
+              element={<Contact setISLoggedIn={setISLoggedIn} />}
             />
             <Route
               path="/signup"
@@ -73,14 +73,19 @@ function App() {
               ></Route>
             </Route>
 
-            {/* <Route
-              path="/user-dashboard"
+            <Route
+              // path="/user-dashboard"
               element={
                 // <PrivateRoute isLoggedIn={isLoggedIn}>
-                  <UserDash></UserDash>
+                <UserDash></UserDash>
                 // </PrivateRoute>
               }
-            />        */}
+            >
+               <Route
+                path="/dashboard/user/flight-data"
+                element={<FlightData></FlightData>}
+              ></Route>
+            </Route>
             <Route path="*" element={<Error></Error>}></Route>
           </Routes>
         </div>

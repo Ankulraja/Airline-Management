@@ -23,7 +23,8 @@ export const FlightEndpoint ={
     GET_ALL_FLIGHT_DATA: BASE_URL + "/flight/getAllFlightData",
     CREATE_FLIGHT_DATA: BASE_URL + "/flight/createFlightData",
     MODIFY_FLIGHT_DATA: BASE_URL + "/flight/modifyFlightData",
-    DELETE_FLIGHT_DATA: BASE_URL + "/flight/deleteFlightData"
+    DELETE_FLIGHT_DATA: BASE_URL + "/flight/deleteFlightData",
+    SEARCH_FLIGHT_DATA: BASE_URL + "/flight/searchFlightData",
 }
 
 

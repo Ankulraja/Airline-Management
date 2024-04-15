@@ -1,7 +1,7 @@
 import React from "react";
 import { TbArrowsExchange } from "react-icons/tb";
-import Slider from "../Components/Common.js/Slider";
-import Footer from "../Components/Common.js/Footer";
+import Slider from "../Components/Common/Slider";
+import Footer from "../Components/Common/Footer";
 const Home = () => {
   return (
     <div className="bg-gradient-to-r  from-cyan-500  to-blue-600 flex flex-col items-center  text-black font-serif pt-20">

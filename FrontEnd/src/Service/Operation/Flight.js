@@ -1,14 +1,16 @@
 import { toast } from "react-hot-toast";
-import { setAllFlightData } from "../../Slices/flightSlice";
+// import { setAllFlightData } from "../../Slices/flightSlice";
 import { apiConnector } from "../apiConnector";
 import { FlightEndpoint } from "../apis";
 import { setFlightData } from "../../Slices/flightSlice";
+import { navigate } from 'react-router-dom';
 
 const {
   GET_ALL_FLIGHT_DATA,
   CREATE_FLIGHT_DATA,
   MODIFY_FLIGHT_DATA,
   DELETE_FLIGHT_DATA,
+  SEARCH_FLIGHT_DATA
 } = FlightEndpoint;
 
 export function createFlightData(formData, navigate) {
@@ -79,4 +81,27 @@ export function deleteFlightData( flightId, navigate ) {
       toast.dismiss(toastId);
     }
   };
+}
+
+
+export function searchFlightData(formData,navigate) {
+  return async(dispatch)=>{
+    const toastId = toast.loading("Searching flight")
+    try{
+      console.log("formData", formData)
+      const response = await apiConnector("POST", SEARCH_FLIGHT_DATA, formData);
+      console.log("Response After getting the flight data", response);
+      dispatch(setFlightData(response?.data?.result));
+      localStorage.setItem(
+        "allFlightData",
+        JSON.stringify(response?.data?.result)
+      );
+      console.log("afsdiakgf",response?.data?.result)
+      toast.dismiss(toastId);
+      navigate("/dashboard/user/flight-data")
+    }catch (e) {
+      console.log("Error while searching for flight data", e);
+      toast.dismiss(toastId);
+    }
+  }
 }

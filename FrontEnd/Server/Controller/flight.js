@@ -141,7 +141,7 @@ exports.getAllFlightData = async (req, res) => {
 exports.deleteFlightData = async (req, res) => {
   try {
     const { flightId } = req.body;
-    console.log("1",flightId);
+    console.log("1", flightId);
     if (!flightId) {
       return res.status(200).json({
         success: false,
@@ -158,6 +158,38 @@ exports.deleteFlightData = async (req, res) => {
     return res.status(200).json({
       success: false,
       message: "Error while deleting the flight",
+    });
+  }
+};
+
+exports.searchFlightData = async (req, res) => {
+  try {
+    const { flightFrom, flightTo } = req.body;
+    console.log("1")
+    if (!flightFrom || !flightTo)
+      return res.status(401).json({
+        success: false,
+        message: "Please Fill all required fields",
+      });
+    console.log("2")
+
+    const result = await Flight.find({ flightFrom, flightTo });
+    if (!result)
+      return res.status(402).json({
+        success: false,
+        message: "Flight Route Not Present",
+      });
+    console.log("3")
+
+    return res.status(200).json({
+      success: true,
+      result,
+      message: "Flight Found",
+    });
+  } catch (e) {
+    res.status(500).json({
+      success: false,
+      message: "Error while finding flight",
     });
   }
 };
