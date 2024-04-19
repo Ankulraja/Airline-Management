@@ -1,33 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 import { TbArrowsExchange } from "react-icons/tb";
 import Slider from "../Components/Common/Slider";
 import Footer from "../Components/Common/Footer";
+import { Link, useNavigate } from "react-router-dom";
 const Home = () => {
+  const navigate = useNavigate();
+  const [formData,setFormData]= useState({
+    flightFrom:"",
+    flightTo:"",
+  })
+
+  const changeHandler = (event)=>{
+    setFormData((old)=>({
+      ...old,
+      [event.target.value]: event.target.name,
+    }))
+  }
+  const submitHandler = (event)=>{
+    event.preventDefault();
+    console.log("FormData")
+    navigate("/login")
+  }
   return (
-    <div className="bg-gradient-to-r  from-cyan-500  to-blue-600 flex flex-col items-center  text-black font-serif pt-20">
+    <div className="bg-gradient-to-r  from-cyan-500  to-black flex flex-col items-center  text-black font-serif pt-20">
       <div className="w-[85%] h-[150px] my-10 rounded-lg bg-white flex flex-col items-center">
         <h4 className="text-4xl font-bold my-5">Book Your Trip</h4>
-        <form className=" mx-auto w-[97%]  mt-1 h-[60px] flex justify-between items-center gap-3">
+        <form onSubmit={submitHandler} className=" mx-auto w-[97%]  mt-1 h-[60px] flex justify-between items-center gap-3">
           <input
+            required
             className=" h-12 rounded-md w-[300px] border-solid border-2 border-grey-900 pl-2"
             type="text"
             placeholder="From"
+            name="flightFrom"
+            // onChange={changeHandler}
+            // value={formData.flightFrom}
           ></input>
           <div className="text-2xl">
             <TbArrowsExchange></TbArrowsExchange>
           </div>
           <input
+          required
             className=" h-12 rounded-md w-[300px] border-solid border-2 border-grey-900 pl-2"
             type="text"
             placeholder="To"
+            name="flightTo"
+            // onChange={changeHandler}
+            // value={formData.flightTo}
           ></input>
           <input
             className=" h-12  rounded-md w-[300px] border-solid border-2 border-grey-900 pl-2"
             type="date"
           ></input>
-          <button className="bg-blue-900 font-serif py-3 px-9 text-white rounded-md">
-            Search Flight
-          </button>
+          <Link to={"/login"}>
+            <button type="submit" className="bg-blue-900 font-serif py-3 px-9 text-white rounded-md">
+              Search Flight
+            </button>
+          </Link>
         </form>
       </div>
 

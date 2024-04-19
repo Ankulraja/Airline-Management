@@ -1,3 +1,4 @@
+const { type } = require('@testing-library/user-event/dist/type');
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
@@ -32,6 +33,10 @@ const userSchema = new mongoose.Schema({
       token: {
         type: String,
       },
+      customerBooking:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Customer"
+      }]
 })
 
 module.exports = mongoose.model("User", userSchema);

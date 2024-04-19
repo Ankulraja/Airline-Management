@@ -8,12 +8,12 @@ import NodataFound from "../../UserDashboard/NodataFound";
 const FlightData = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const { allFlightData } = useSelector((state) => state.flight);
+
   const { modifyData } = useSelector((state) => state.modify);
 
   const getAllFlight = async () => {
     try {
-      dispatch(getAllFlightData());
+      // dispatch(getAllFlightData());
     } catch (err) {
       toast.error(err.response.data.message);
     }
@@ -22,20 +22,24 @@ const FlightData = () => {
   useEffect(() => {
     if (location.pathname.split("/").at(-2) !== "user") {
       getAllFlight();
+      console.log("idhar")
     }
   }, []);
+
+  const { allFlightData } = useSelector((state) => state.flight);
+  console.log("allFlightData", allFlightData);
 
   if (location.pathname.split("/").at(-2) === "admin") {
     return (
       <div>
-        {allFlightData.map((value, index) => {
+        {allFlightData?.map((value, index) => {
           return <FlightCard data={value} key={index}></FlightCard>;
         })}
         {allFlightData?.length === 0 && (
-        <div>
-          <NodataFound></NodataFound>
-        </div>
-      )}
+          <div>
+            <NodataFound></NodataFound>
+          </div>
+        )}
       </div>
     );
   }

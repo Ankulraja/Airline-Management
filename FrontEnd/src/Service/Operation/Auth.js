@@ -4,7 +4,8 @@ import { setLoading, setToken } from "../../Slices/authSlice";
 import { setUser } from "../../Slices/profile";
 import { apiConnector } from "../apiConnector";
 import { endpoints } from "../apis";
-
+import { setFlightData } from "../../Slices/flightSlice";
+import {getAllFlightData} from "./Flight"
 const {
   SENDOTP_API,
   SIGNUP_API,
@@ -119,7 +120,8 @@ export function login(email, password, navigate) {
       if (response.data.user.accountType === "User") {
         navigate("/dashboard");
       } else {
-        navigate("/dashboard/admin/flight-data");
+       dispatch(getAllFlightData(navigate));
+       
       }
     } catch (error) {
       console.log("LOGIN API ERROR............", error);
@@ -134,9 +136,11 @@ export function logout(navigate) {
   return (dispatch) => {
     dispatch(setToken(null));
     dispatch(setUser(null));
-    // dispatch(resetCart());
+    dispatch(setFlightData(null));
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("allFlightData");
+
     navigate("/");
     toast.success("Logged Out");
   };

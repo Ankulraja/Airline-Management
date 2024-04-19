@@ -25,8 +25,21 @@ export const FlightEndpoint ={
     MODIFY_FLIGHT_DATA: BASE_URL + "/flight/modifyFlightData",
     DELETE_FLIGHT_DATA: BASE_URL + "/flight/deleteFlightData",
     SEARCH_FLIGHT_DATA: BASE_URL + "/flight/searchFlightData",
+    GET_BOOKING_DETAILS: BASE_URL + "/flight/getAllBookedFlightDetail "
 }
 
+
+
+// Payment API
+export const paymentEndPoint = {
+  CREATE_PAYMENT: BASE_URL + "/payment/createOrder"
+}
+  
+
+// User-FLight
+export const userFlight = {
+  ADD_FLIGHT_ID_IN_USER: BASE_URL + "/flight/addFlightIdInUser"
+}
 
 
 // CONTACT-US API

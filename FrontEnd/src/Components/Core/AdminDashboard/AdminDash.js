@@ -6,6 +6,9 @@ import {useDispatch, useSelector} from "react-redux";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import {setOneFlightData} from "../../../Slices/flightSlice"
 import { searchFlightData } from "../../../Service/Operation/Flight";
+import { getAllFlightData } from "../../../Service/Operation/Flight";
+import { toast } from "react-hot-toast";
+
 
 const AdminDash = () => {
   const location = useLocation();
@@ -18,6 +21,20 @@ const AdminDash = () => {
     flightFrom: allFlightData[0]?.flightFrom ?? "",
     flightTo: allFlightData[0]?.flightTo ?? "",
   });
+  // const getAllFlight = async () => {
+  //   try {
+  //      await dispatch(getAllFlightData());
+  //   } catch (err) {
+  //     toast.error(err.response.data.message);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   if (location.pathname.split("/").at(-2) !== "user") {
+  //     getAllFlight();
+  //     console.log("idhar")
+  //   }
+  // }, []);
   const changeHandler = (event) => {
     setFormData((old) => ({
       ...old,
@@ -41,8 +58,8 @@ const AdminDash = () => {
     return matchPath({ path: route }, location.pathname);
   };
 
-  // useEffect(()=>{
 
+  // useEffect(()=>{
   // },[referesh])
 
   const swapHandler =()=>{
@@ -53,11 +70,13 @@ const AdminDash = () => {
 
   return (
     <div className="w-screen min-h-screen bg-slate-200 pt-8 border border-blu-500">
-      <div className="w-10/12 mx-auto py-16 relative">
+      <div className="w-full mx-auto py-12 relative">
+        
         <form
           onSubmit={submitHandler}
-          className="w-8/12 relative mx-auto flex flex-row justify-between items-center"
+          className="w-full bg-indigo-500 py-2 mt-3  relative mx-auto flex flex-row justify-center items-center"
         >
+          <div className="w-1/2 flex flex-row items-center justify-center">
           <input
             onChange={changeHandler}
             placeholder="From"
@@ -77,13 +96,14 @@ const AdminDash = () => {
           ></input>
           <button
             type="submit"
-            className="absolute right-[45%] top-[100%] ml-10 py-3 px-4 bg-yellow-300 text-black rounded-lg font-bold"
+            className="  ml-10 py-2 active:scale-95 hover:bg-yellow-400 px-4 bg-yellow-300 text-black rounded-lg font-bold"
           >
             Submit
           </button>
+          </div>
         </form>
         <Link to={"/dashboard/admin/create-flight"}>
-          <button onClick={backHandler} className="absolute right-0 ml-10 py-3 px-4 bg-blue-900 text-white rounded-lg font-bold  hover:bg-blue-600 hover:border-blue-800 active:scale-95">
+          <button onClick={backHandler} className="absolute right-16 bottom-3 ml-10 py-3 px-4 bg-blue-900 text-white rounded-lg font-bold  hover:bg-blue-600 hover:border-blue-800 active:scale-95">
             Add Flight
           </button>
         </Link>

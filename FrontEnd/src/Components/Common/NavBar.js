@@ -7,6 +7,7 @@ import { FaCircleChevronDown } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../Service/Operation/Auth";
 import { useDispatch } from "react-redux";
+import ProfileDropDown from "./ProfileDropDown";
 const NavBar = (props) => {
   const location = useLocation();
   const dispatch = useDispatch();
@@ -24,10 +25,6 @@ const NavBar = (props) => {
       title: "Home",
       path: "/",
     },
-    // {
-    //   title: "Catalog",
-    //   // path: '/catalog',
-    // },
     {
       title: "About Us",
       path: "/about",
@@ -90,7 +87,7 @@ const NavBar = (props) => {
 
         {/* Login, SignUp and Dashboard */}
 
-        <div className="w-1/3  text-white flex justify-end gap-5 items-end">
+        <div className="w-1/3 relative  text-white flex justify-end gap-5 items-end">
           {token === null && (
             <Link to="/login">
               <div
@@ -123,29 +120,21 @@ const NavBar = (props) => {
               </div>
             </Link>
           )}
-          {token && (
-            <div className="flex flex-row gap-10 justify-center items-center">
-              <Link to="/dashboard">
-                <button className="">Dashboard</button>
-              </Link>
-              <button
-                className={`py-2 px-3 bg-richblack-700 rounded-lg border border-richblack-200 transition-all duration-200 
-              hover:border hover:border-red-600 hover:text-red-600`}
-                onClick={() => dispatch(logout(navigate))}
-              >
-                Logout
-              </button>
-              <div className="w-[45px] h-[45px] rounded-[50%] ">
-                <img
-                  className="w-full h-full rounded-[50%]"
-                  alt="loading"
-                  src={user.image}
-                ></img>
-              </div>
+
+
+          {/* {token && (
+            <div className="border border-green-300">
+              <ProfileDropDown></ProfileDropDown>
+            </div>
+          )} */}
+        </div>
+        
+      </div>
+      {token && (
+            <div className="pr-5 text-white">
+              <ProfileDropDown></ProfileDropDown>
             </div>
           )}
-        </div>
-      </div>
     </div>
   );
 };

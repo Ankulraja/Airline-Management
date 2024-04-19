@@ -1,5 +1,5 @@
 // import logo from './logo.svg';
-import "./App.css";
+// import "./App.css";
 import NavBar from "./Components/Common/NavBar";
 import { Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
@@ -17,13 +17,17 @@ import { PrivateRoute } from "./Components/Core/Auth/PrivateRoute";
 import Error from "./Components/Common/Error";
 import { UserDash } from "./Components/Core/UserDashboard/UserDash";
 import FlightData from "./Components/Core/AdminDashboard/FlightDetail/FlightData";
+import Payment from "../src/Pages/Payment"
+import MyBooking from "./Pages/MyBooking";
+import BookingForm from "./Components/Core/UserDashboard/BookingForm";
+import About from "./Pages/About";
 function App() {
   const [isLoggedIn, setISLoggedIn] = useState(false);
 
   return (
     <SignupDataIdProvider>
       <div>
-        <div className="w-screen h-full flex flex-col">
+        <div className="w-screen h-full flex flex-col ">
           <Toaster></Toaster>
           <NavBar isLoggedIn={isLoggedIn} setISLoggedIn={setISLoggedIn} />
 
@@ -34,6 +38,10 @@ function App() {
               element={<Login setISLoggedIn={setISLoggedIn} />}
             />
             <Route
+              path="/about"
+              element={<About></About>}
+            />
+            <Route
               path="/contact"
               element={<Contact setISLoggedIn={setISLoggedIn} />}
             />
@@ -41,6 +49,7 @@ function App() {
               path="/signup"
               element={<Signup setISLoggedIn={setISLoggedIn} />}
             />
+           
             <Route
               path="/verify-email"
               element={<Otp setISLoggedIn={setISLoggedIn} />}
@@ -85,6 +94,14 @@ function App() {
                 path="/dashboard/user/flight-data"
                 element={<FlightData></FlightData>}
               ></Route>
+               <Route
+              path="dashboard/user/my-booking"
+              element={<MyBooking></MyBooking>}
+            />
+               <Route
+              path="dashboard/user/booking-form"
+              element={<BookingForm></BookingForm>}
+            />
             </Route>
             <Route path="*" element={<Error></Error>}></Route>
           </Routes>

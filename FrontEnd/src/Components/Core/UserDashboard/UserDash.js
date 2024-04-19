@@ -6,6 +6,7 @@ import { setModifyData } from "../../../Slices/modifySlice";
 import { modifyFlightData } from "../../../Service/Operation/Flight";
 import { click } from "@testing-library/user-event/dist/click";
 import { searchFlightData } from "../../../Service/Operation/Flight";
+
 export const UserDash = () => {
   const { allFlightData } = useSelector((state) => state.flight);
   const { modifyData } = useSelector((state) => state.modify);
@@ -19,7 +20,7 @@ export const UserDash = () => {
     }`,
     flightTo: `${modifyData?.flightTo ?? allFlightData[0]?.flightTo ?? ""}`,
     date: new Date().toISOString().substr(0, 10),
-    passenger: `${modifyData?.passenger ?? ""}`,
+    passenger: `${modifyData?.passenger ?? 1}`,
     class: `${modifyData?.class ?? ""}`,
   });
 
@@ -93,9 +94,9 @@ export const UserDash = () => {
   }
 
   return (
-    <div className="bg-gray-200 w-screen h-screen">
+    <div className="bg-gray-200 relative border w-screen h-screen">
       {/* Left-right wala div tag */}
-      <div className="border border-gray-400 relative py-4 w-full bg-gray-300 mt-10 ml-[0px] flex items-center justify-center ">
+      <div className="border border-gray-400 py-4 w-full bg-gray-300 mt-10 ml-[0px] flex items-center justify-center ">
         <img
           src="https://res.cloudinary.com/dppgyjdcg/image/upload/v1712989256/priyanshu/flight_ye2cid.png"
           alt="kinare ka pic"
@@ -105,10 +106,10 @@ export const UserDash = () => {
           className="flex item-center justify-between gap-6"
           onSubmit={submitHandlerRow}
         >
-          <div className="mt-2 h-[50px] w-[182px] flex items-center justify-start gap-1 p-1 pl-3 text-gray-900 rounded-xl border border-black ">
+          <div className="mt-2 h-[50px] w-[182px] flex items-center justify-start gap-1 p-2  text-gray-900 rounded-xl border border-black ">
             <p className="font-bold">From:</p>
             <input
-              className=" h-11 w-[120px] bg-transparent border-none rounded-lg pl-2"
+              className=" h-11 w-[120px] bg-gray-300 border-none rounded-lg pl-2 "
               required
               type="text"
               onChange={changeHandlerRow}
@@ -119,10 +120,10 @@ export const UserDash = () => {
           <button onClick={swapHandler} className="mt-5 text-4xl text-black">
             <CgArrowsExchange />
           </button>
-          <div className="mt-2 h-[50px] w-[162px] flex items-center justify-start gap-1 p-1 pl-3 text-gray-900 rounded-xl border border-black ">
+          <div className="mt-2 h-[50px] w-[162px] flex items-center justify-start gap-1 p-1  text-gray-900 rounded-xl border border-black ">
             <p className="font-bold">To:</p>
             <input
-              className=" h-11 w-[120px] bg-transparent border-none rounded-lg pl-2"
+              className=" h-11 w-[120px] bg-gray-300 border-none rounded-lg pl-2"
               required
               type="text"
               onChange={changeHandlerRow}
@@ -305,7 +306,8 @@ export const UserDash = () => {
         <div className="bg-gray-200 w-11/12 mx-auto overflow-y-scroll">
           <Outlet />
         </div>
-      </div>
+      </div> 
+
     </div>
   );
 };

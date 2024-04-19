@@ -2,7 +2,7 @@ import { toast } from "react-hot-toast";
 // import { setAllFlightData } from "../../Slices/flightSlice";
 import { apiConnector } from "../apiConnector";
 import { FlightEndpoint } from "../apis";
-import { setFlightData } from "../../Slices/flightSlice";
+import { setAllBookingDetails, setFlightData } from "../../Slices/flightSlice";
 import { navigate } from 'react-router-dom';
 
 const {
@@ -10,7 +10,8 @@ const {
   CREATE_FLIGHT_DATA,
   MODIFY_FLIGHT_DATA,
   DELETE_FLIGHT_DATA,
-  SEARCH_FLIGHT_DATA
+  SEARCH_FLIGHT_DATA,
+  GET_BOOKING_DETAILS
 } = FlightEndpoint;
 
 export function createFlightData(formData, navigate) {
@@ -28,7 +29,7 @@ export function createFlightData(formData, navigate) {
   };
 }
 
-export function getAllFlightData() {
+export function getAllFlightData(navigate) {
   return async (dispatch) => {
     try {
       const toastId = toast.loading("Fetching Data...");
@@ -43,6 +44,7 @@ export function getAllFlightData() {
         "allFlightData",
         JSON.stringify(result.data.response)
       );
+      navigate("/dashboard/admin/flight-data");
       toast.dismiss(toastId);
     } catch (e) {
       console.log("Error while fetching the Data", e);
@@ -101,6 +103,23 @@ export function searchFlightData(formData,navigate) {
       navigate("/dashboard/user/flight-data")
     }catch (e) {
       console.log("Error while searching for flight data", e);
+      toast.dismiss(toastId);
+    }
+  }
+}
+
+
+export function getBookinDetail(formData){
+  return async(dispatch)=>{
+    const toastId = toast.loading("Getting details...")
+    try{
+      const result = await apiConnector("POST",GET_BOOKING_DETAILS,formData)
+      console.log("Response After getting the booking data", result.data);
+      dispatch(setAllBookingDetails(result.data?.userDetail.customerBooking))
+      localStorage.setItem("allbookingDetails",JSON.stringify(result.data?.userDetail.customerBooking      ))
+      toast.dismiss(toastId);
+    }catch(e){
+      console.log("errr",e)
       toast.dismiss(toastId);
     }
   }

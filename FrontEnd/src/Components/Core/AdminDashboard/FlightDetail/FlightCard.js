@@ -43,7 +43,7 @@ const FlightCard = (props) => {
   }
 
   const modifyClickHandler = () => {
-    // console.log(data);
+    // console.log("................",data);
     dispatch(setOneFlightData(data));
     localStorage.setItem("oneFlightData", JSON.stringify(data));
     navigate("/dashboard/admin/create-flight");
