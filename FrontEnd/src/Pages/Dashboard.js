@@ -73,7 +73,7 @@ console.log("The day", formData);
       </div>
 
     <div className='flex justify-end items-end text-black text-4xl mt-[18%] w-full pr-10 font-serif'>
-    Welcome To <span className="w-12 h-12 mx-3  "> < img alt="..." src="https://res.cloudinary.com/dkoezhi9u/image/upload/v1708422225/samples/Logo_llkrfe.png"/> </span> Airline Dashboard
+    Welcome To <span className="w-12 h-12 mx-3  "> < img alt="..." src="https://res.cloudinary.com/dppgyjdcg/image/upload/v1712938967/priyanshu/Logo_llkrfe-removebg_d0zll7.png"/> </span> Airline Dashboard
     </div>
       <div className="w-[85%] border-solid text-gray-200 pt-10 ">
         <h2 className="font-bold text-3xl p-5">Offers</h2>

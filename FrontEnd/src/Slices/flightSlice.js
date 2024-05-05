@@ -9,7 +9,7 @@ const initialState = {
     : "",
   allbookingDetails: localStorage.getItem("allbookingDetails")
     ? JSON.parse(localStorage.getItem("allbookingDetails"))
-    : "",
+    : [],
   bookingFlightDetail: localStorage.getItem("bookingFlightDetail")
     ? JSON.parse(localStorage.getItem("bookingFlightDetail"))
     : "",

@@ -120,8 +120,8 @@ export function login(email, password, navigate) {
       if (response.data.user.accountType === "User") {
         navigate("/dashboard");
       } else {
-       dispatch(getAllFlightData(navigate));
-       
+      //  dispatch(getAllFlightData(navigate));
+      navigate("/dashboard/admin/flight-data");
       }
     } catch (error) {
       console.log("LOGIN API ERROR............", error);
@@ -136,10 +136,10 @@ export function logout(navigate) {
   return (dispatch) => {
     dispatch(setToken(null));
     dispatch(setUser(null));
-    dispatch(setFlightData(null));
+    // dispatch(setFlightData(null));
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    localStorage.removeItem("allFlightData");
+    // localStorage.removeItem("allFlightData");
 
     navigate("/");
     toast.success("Logged Out");

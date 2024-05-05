@@ -19,21 +19,15 @@ function AddFlight() {
   const [selectedDays, setSelectedDays] = useState([]);
 
   // Dropdown change handler
-
   function handleDropdownChange(event) {
     const { value, checked } = event.target;
-    console.log("Value:", value);
-    console.log("Checked:", checked);
-    console.log("Previous selected days:", selectedDays);
-    if (checked ) {
-      console.log("selectedDays",selectedDays)
+    if (checked) {
       setSelectedDays([...selectedDays, value]);
     } else {
       setSelectedDays(selectedDays.filter((day) => day !== value));
     }
   }
 
-  // Function to check if a day is selected
 
   function isDaySelected(day) {
     return selectedDays.includes(day);
@@ -234,21 +228,21 @@ function AddFlight() {
             <div className="dropdown">
               <span>Select days:</span>
               <div className="dropdown-content flex gap-4">
-                {/* {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(
+                {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(
                   (day, index) => (
                     <label key={index}>
                       <input
                         type="checkbox"
                         value={day}
                         name="days"
-                        checked={formData?.days.includes(day)}
+                        // checked={formData?.days.includes(day)}
                         onChange={handleDropdownChange}
                       />
                       {day}
                     </label>
                   )
-                )} */}
-                <label className=" rounded-lg p-1 duration-150 transition-all">
+                )}
+                {/* <label className=" rounded-lg p-1 duration-150 transition-all">
                   <input
                     type="checkbox"
                     value="Sunday"
@@ -324,7 +318,7 @@ function AddFlight() {
                     className="mr-1"
                   />
                   Saturday
-                </label>
+                </label> */}
               </div>
             </div>
           </div>

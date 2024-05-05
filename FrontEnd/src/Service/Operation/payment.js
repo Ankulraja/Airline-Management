@@ -3,6 +3,7 @@ import { paymentEndPoint } from "../../Service/apis";
 import { toast } from "react-hot-toast";
 import { userFlight } from "../apis";
 import { useSelector } from "react-redux";
+import {getBookinDetail} from "./Flight"
 const { CREATE_PAYMENT } = paymentEndPoint;
 
 const { ADD_FLIGHT_ID_IN_USER } = userFlight;
@@ -59,7 +60,7 @@ export function createPayment(bookingDetail, navigate,userData, e) {
               receipt: response.order.receipt,
               userData: userData
              };
-            updateFlightInUser(formData, navigate,userData);
+            updateFlightInUser(formData, navigate,dispatch);
           }
         },
         prefill: {
@@ -94,7 +95,7 @@ export function createPayment(bookingDetail, navigate,userData, e) {
   };
 }
 
-async function updateFlightInUser(formData, navigate) {
+async function updateFlightInUser(formData, navigate,dispatch) {
   try {
     console.log(formData);
     // console.log(formData.flightId);
@@ -106,9 +107,11 @@ async function updateFlightInUser(formData, navigate) {
         ADD_FLIGHT_ID_IN_USER,
         formData
       );
-      console.log("Response", output);
-      console.log("Response", output.data);
-      navigate("/dashboard/user/my-booking");
+      // console.log("Response", output);
+      // console.log("Response", output.data);
+      console.log("...............................................................................................................................................yes")
+      dispatch(getBookinDetail(formData,navigate));
+      // navigate("/dashboard/user/my-booking");
     } catch (e) {
       console.log("Error add flightId", e);
     }

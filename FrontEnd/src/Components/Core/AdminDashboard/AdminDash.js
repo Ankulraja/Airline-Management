@@ -21,20 +21,20 @@ const AdminDash = () => {
     flightFrom: allFlightData[0]?.flightFrom ?? "",
     flightTo: allFlightData[0]?.flightTo ?? "",
   });
-  // const getAllFlight = async () => {
-  //   try {
-  //      await dispatch(getAllFlightData());
-  //   } catch (err) {
-  //     toast.error(err.response.data.message);
-  //   }
-  // };
+  const getAllFlight = async () => {
+    try {
+       dispatch(getAllFlightData());
+    } catch (err) {
+      toast.error(err.response.data.message);
+    }
+  };
 
-  // useEffect(() => {
-  //   if (location.pathname.split("/").at(-2) !== "user") {
-  //     getAllFlight();
-  //     console.log("idhar")
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (location.pathname.split("/").at(-2) !== "user") {
+      getAllFlight();
+      console.log("idhar")
+    }
+  }, []);
   const changeHandler = (event) => {
     setFormData((old) => ({
       ...old,

@@ -13,7 +13,7 @@ const FlightData = () => {
 
   const getAllFlight = async () => {
     try {
-      // dispatch(getAllFlightData());
+      dispatch(getAllFlightData());
     } catch (err) {
       toast.error(err.response.data.message);
     }

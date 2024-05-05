@@ -5,7 +5,6 @@ import BookingCard from "../Components/Core/UserDashboard/BookingCard";
 
 const MyBooking = () => {
   const { user } = useSelector((state) => state.profile);
-  const { allbookingDetails } = useSelector((state) => state.flight);
   // console.log("............", user._id);
   const formData = {
     userId: user._id,
@@ -21,6 +20,8 @@ const MyBooking = () => {
   useEffect(() => {
     getBookingDetails();
   }, []);
+
+  const { allbookingDetails } = useSelector((state) => state.flight);
   console.log("allbookingDetails...",allbookingDetails)
   return <div className="w-11/12 mx-auto pt-12">
     {
