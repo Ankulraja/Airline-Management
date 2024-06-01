@@ -1,12 +1,46 @@
 # Airline-Management
-This is SE Project
+This is a Software Engineering project.
 <br>
 Created By Ankul
-
 <p>
-Experience seamless booking of your airplane tickets through our airline website, boasting an intuitive user interface designed to enhance your journey from start to finish</p>
+Experience seamless booking of your airplane tickets through our airline website, boasting an intuitive user interface designed to enhance your journey from start to finish.</p>
 
 <b>Demo Video :- </b>  <a href="https://drive.google.com/file/d/1oSrosCQkSutakhC-1BcrN6rCGUfiZm0K/view?usp=drive_link">Click Here</a>
+
+<p>How to Run This Project</p>
+Step 1.  **Clone this repository**:
+   ```sh
+   git clone https://github.com/yourusername/Airline-Management.git
+   cd Airline-Management
+Step 2.Instal npm in frontend Side by npm install
+Step 3.Go to Server folder by doing cd /Server/
+Step 4.Install npm in Server side by npm install
+Step 5.Add .env file in Server
+      ### Formate of .env file ###
+      PORT=4000
+      DATABASE_URL=""  
+      JWT_SECRET=""
+      FOLDER_NAME=""
+  
+# Razopay
+RAZORPAY_KEY=
+RAZORPAY_SECRET=
+
+# Mail
+MAIL_HOST= 
+MAIL_USER=
+MAIL_PASS=
+
+# Cloudinary
+CLOUD_NAME=
+API_KEY=
+API_SECRET=
+
+
+Step 6. Now you Can Run Server by using npm run dev.
+Step 7. Go back again in frontend by doing cd ..
+Step 8. Start Frontend by use npm start
+
 
 <h5>Some Glimpse of our website</h5>
 
