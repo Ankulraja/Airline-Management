@@ -9,8 +9,8 @@ Experience seamless booking of your airplane tickets through our airline website
 
 <p>How to Run This Project</p>
 Step 1.  **Clone this repository**:
-   ```sh
-   git clone https://github.com/yourusername/Airline-Management.git
+   `sh
+   git clone https://github.com/yourusername/Airline-Management.git `
    cd Airline-Management
 Step 2.Instal npm in frontend Side by npm install
 Step 3.Go to Server folder by doing cd /Server/
